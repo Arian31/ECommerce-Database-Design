@@ -1,0 +1,29 @@
+USE ECommerceDB
+GO
+
+IF NOT EXISTS
+(
+	SELECT *
+	FROM sys.tables
+	WHERE name = 'Users'
+)
+BEGIN
+	CREATE TABLE Users
+	(
+		UserID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		FirstName NVARCHAR(50) NOT NULL,
+		LastName NVARCHAR(50) NOT NULL,
+		NationalCode CHAR(10) UNIQUE NULL,
+		Email NVARCHAR(50) UNIQUE NOT NULL,
+		PhoneNumber CHAR(20) UNIQUE NOT NULL,
+		PasswordHash NVARCHAR(50) NOT NULL,
+		BirthDate DATE NOT NULL,
+		Gender CHAR(1) DEFAULT 'U' NOT NULL
+							CHECK (Gender IN('F', 'M', 'U')),
+		IsActive BIT DEFAULT 0 NOT NULL,
+		CreatedAt DATE NOT NULL,
+		UpdatedAt DATE NULL,
+	)
+END
+
+GO

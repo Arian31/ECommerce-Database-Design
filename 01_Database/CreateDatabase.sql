@@ -1,0 +1,11 @@
+IF NOT EXISTS 
+(
+	SELECT *
+	FROM SYS.databases
+	WHERE name = 'ECommerceDB'
+)
+BEGIN 
+	CREATE DATABASE ECommerceDB
+END
+
+GO
