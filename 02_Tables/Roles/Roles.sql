@@ -1,0 +1,19 @@
+USE ECommerceDB
+GO
+
+IF NOT EXISTS
+(
+	SELECT name
+	FROM sys.tables
+	WHERE name = 'Roles'
+)
+BEGIN
+	CREATE TABLE Roles
+	(
+		RoleID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		RoleName NVARCHAR(50) UNIQUE NOT NULL,
+		[Description] NVARCHAR(200) NULL
+	)
+END
+GO
+

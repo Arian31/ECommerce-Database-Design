@@ -1,0 +1,16 @@
+USE ECommerceDB
+GO
+
+ALTER TABLE UserRoles
+ADD CONSTRAINT FK_UserRoles_Users
+FOREIGN KEY(UserID)
+REFERENCES Users(UserID);
+
+GO
+
+ALTER TABLE UserRoles
+ADD CONSTRAINT FK_UserRoles_Roles
+FOREIGN KEY(RoleID)
+REFERENCES Roles(RoleID);
+
+GO
