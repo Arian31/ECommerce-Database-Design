@@ -1,0 +1,23 @@
+USE ECommerceDB
+GO
+
+IF NOT EXISTS
+(
+	SELECT *
+	FROM sys.tables
+	WHERE name = 'Categories'
+)
+BEGIN
+	CREATE TABLE Categories
+	(
+		CategoryID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		ParentCategoryID INT NULL,
+		CategoryName NVARCHAR(50) NOT NULL,
+		[Description] NVARCHAR(200) NULL,
+		ImageUrl NVARCHAR(MAX) NULL,
+		IsActive BIT DEFAULT 1 NOT NULL,
+		CreatedAt DATETIME2 NOT NULL DEFAULT GETDATE()
+	)
+END
+GO
+

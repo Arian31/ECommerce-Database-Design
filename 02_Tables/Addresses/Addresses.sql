@@ -1,3 +1,6 @@
+USE ECommerceDB
+GO
+
 IF NOT EXISTS
 (
 	SELECT *

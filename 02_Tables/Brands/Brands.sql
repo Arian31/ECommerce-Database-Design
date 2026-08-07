@@ -1,0 +1,22 @@
+USE ECommerceDB
+GO
+
+IF NOT EXISTS
+(
+	SELECT *
+	FROM sys.tables
+	WHERE name = 'Brands'
+)
+BEGIN
+	CREATE TABLE Brands
+	(
+		BrandID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		BrandName NVARCHAR(50) UNIQUE NOT NULL,
+		[Description] NVARCHAR(200) NULL,
+		Website NVARCHAR(100) NULL,
+		LogoUrl NVARCHAR(MAX) NULL,
+		IsActive BIT DEFAULT 1 NOT NULL,
+		CreatedAt DATE NOT NULL
+	)
+END
+GO
