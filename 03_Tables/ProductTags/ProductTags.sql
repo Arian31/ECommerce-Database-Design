@@ -1,0 +1,18 @@
+USE ECommerceDB
+GO
+
+IF NOT EXISTS
+(
+	SELECT *
+	FROM sys.tables
+	WHERE name = 'ProductTags'
+)
+BEGIN
+	CREATE TABLE [Catalog].ProductTags
+	(
+		TagID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		TagName NVARCHAR(50) UNIQUE NOT NULL,
+		CreatedAt DATETIME2 NOT NULL DEFAULT GETDATE()
+	)
+END
+GO

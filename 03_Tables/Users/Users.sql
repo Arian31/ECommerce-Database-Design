@@ -8,7 +8,7 @@ IF NOT EXISTS
 	WHERE name = 'Users'
 )
 BEGIN
-	CREATE TABLE Users
+	CREATE TABLE [Security].Users
 	(
 		UserID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		FirstName NVARCHAR(50) NOT NULL,

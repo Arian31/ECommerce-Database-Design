@@ -8,7 +8,7 @@ IF NOT EXISTS
     WHERE name = 'UserRoles'
 )
 BEGIN
-    CREATE TABLE UserRoles
+    CREATE TABLE [Security].UserRoles
     (
         UserID INT NOT NULL,
         RoleID INT NOT NULL,

@@ -8,7 +8,7 @@ IF NOT EXISTS
 	WHERE name = 'Categories'
 )
 BEGIN
-	CREATE TABLE Categories
+	CREATE TABLE [Catalog].Categories
 	(
 		CategoryID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		ParentCategoryID INT NULL,
