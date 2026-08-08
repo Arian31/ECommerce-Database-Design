@@ -8,7 +8,7 @@ IF NOT EXISTS
 	WHERE name = 'Addresses'
 )
 BEGIN 
-	CREATE TABLE [Catalog].Addresses
+	CREATE TABLE customer.Addresses
 	(
 		AddressID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 		UserID INT NOT NULL,

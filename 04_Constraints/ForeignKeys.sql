@@ -38,7 +38,7 @@ IF NOT EXISTS
 	WHERE name = 'FK_Addresses_Users'
 )
 BEGIN
-    ALTER TABLE [Catalog].Addresses 
+    ALTER TABLE customer.Addresses 
     ADD CONSTRAINT FK_Addresses_Users
     FOREIGN KEY(UserId)
     REFERENCES [security].Users(UserId)
