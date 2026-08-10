@@ -170,3 +170,114 @@ BEGIN
     FOREIGN KEY(VariantID) REFERENCES [catalog].ProductVariants(VariantID)
 END
 GO
+
+-- FK to Supplier
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_PurchaseInvoices_Suppliers')
+BEGIN
+    ALTER TABLE [purchasing].PurchaseInvoices
+    ADD CONSTRAINT FK_PurchaseInvoices_Suppliers
+    FOREIGN KEY(SupplierID) REFERENCES [purchasing].Suppliers(SupplierID)
+END
+GO
+
+-- FK to PurchaseInvoices
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_PurchaseItems_PurchaseInvoices')
+BEGIN
+    ALTER TABLE [purchasing].PurchaseItems
+    ADD CONSTRAINT FK_PurchaseItems_PurchaseInvoices
+    FOREIGN KEY(PurchaseID) REFERENCES [purchasing].PurchaseInvoices(PurchaseID)
+END
+GO
+
+-- FK to ProductVariants
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_PurchaseItems_ProductVariants')
+BEGIN
+    ALTER TABLE [purchasing].PurchaseItems
+    ADD CONSTRAINT FK_PurchaseItems_ProductVariants
+    FOREIGN KEY(VariantID) REFERENCES [catalog].ProductVariants(VariantID)
+END
+GO
+
+-- *** ShoppingCarts FK: User ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_ShoppingCarts_Users'
+)
+BEGIN
+    ALTER TABLE [sales].ShoppingCarts
+    ADD CONSTRAINT FK_ShoppingCarts_Users
+    FOREIGN KEY(UserID)
+    REFERENCES [security].Users(UserID)
+END
+GO
+
+-- *** CartItems FK: ProductVariant ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_CartItems_ProductVariants'
+)
+BEGIN
+    ALTER TABLE [sales].CartItems
+    ADD CONSTRAINT FK_CartItems_ProductVariants
+    FOREIGN KEY(VariantID)
+    REFERENCES [catalog].ProductVariants(VariantID)
+END
+GO
+
+
+-- *** Orders FK: User ***
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_Orders_Users')
+BEGIN
+    ALTER TABLE [sales].Orders
+    ADD CONSTRAINT FK_Orders_Users
+    FOREIGN KEY(UserID) REFERENCES [security].Users(UserID)
+END
+GO
+
+-- *** Orders FK: Address ***
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_Orders_Addresses')
+BEGIN
+    ALTER TABLE [sales].Orders
+    ADD CONSTRAINT FK_Orders_Addresses
+    FOREIGN KEY(AddressID) REFERENCES [customer].Addresses(AddressID)
+END
+GO
+
+
+
+-- *** OrderItems FK: ProductVariant ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_OrderItems_ProductVariants'
+)
+BEGIN
+    ALTER TABLE [sales].OrderItems
+    ADD CONSTRAINT FK_OrderItems_ProductVariants
+    FOREIGN KEY(VariantID)
+    REFERENCES [catalog].ProductVariants(VariantID)
+END
+GO
+
+-- *** Payments FK: Orders ***
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_Payments_Orders')
+BEGIN
+    ALTER TABLE [payment].Payments
+    ADD CONSTRAINT FK_Payments_Orders
+    FOREIGN KEY(OrderID) REFERENCES [sales].Orders(OrderID)
+END
+GO
+
+-- *** Payments FK: PaymentMethods ***
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_Payments_Methods')
+BEGIN
+    ALTER TABLE [payment].Payments
+    ADD CONSTRAINT FK_Payments_Methods
+    FOREIGN KEY(PaymentMethodID) REFERENCES [payment].PaymentMethods(PaymentMethodID)
+END
+GO
