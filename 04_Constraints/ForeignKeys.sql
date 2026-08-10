@@ -281,3 +281,83 @@ BEGIN
     FOREIGN KEY(PaymentMethodID) REFERENCES [payment].PaymentMethods(PaymentMethodID)
 END
 GO
+
+-- *** Shippings FK: Orders ***
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_Shippings_Orders')
+BEGIN
+    ALTER TABLE [shipping].Shippings
+    ADD CONSTRAINT FK_Shippings_Orders
+    FOREIGN KEY(OrderID) REFERENCES [sales].Orders(OrderID)
+END
+GO
+
+-- *** Shippings FK: ShippingCompanies ***
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_Shippings_Companies')
+BEGIN
+    ALTER TABLE [shipping].Shippings
+    ADD CONSTRAINT FK_Shippings_Companies
+    FOREIGN KEY(ShippingCompanyID) REFERENCES [shipping].ShippingCompanies(ShippingCompanyID)
+END
+GO
+
+
+-- *** OrderCoupons FK: Coupons ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_OrderCoupons_Coupons'
+)
+BEGIN
+    ALTER TABLE [sales].OrderCoupons
+    ADD CONSTRAINT FK_OrderCoupons_Coupons
+    FOREIGN KEY(CouponID)
+    REFERENCES [sales].Coupons(CouponID)
+END
+GO
+
+-- *** OrderCoupons FK: Orders ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_OrderCoupons_Orders'
+)
+BEGIN
+    ALTER TABLE [sales].OrderCoupons
+    ADD CONSTRAINT FK_OrderCoupons_Orders
+    FOREIGN KEY(OrderID)
+    REFERENCES [sales].Orders(OrderID)
+END
+GO
+
+
+-- *** Reviews FK: Products ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_Reviews_Products'
+)
+BEGIN
+    ALTER TABLE [review].Reviews
+    ADD CONSTRAINT FK_Reviews_Products
+    FOREIGN KEY(ProductID)
+    REFERENCES [catalog].Products(ProductID)
+END
+GO
+
+-- *** Reviews FK: Users ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_Reviews_Users'
+)
+BEGIN
+    ALTER TABLE [review].Reviews
+    ADD CONSTRAINT FK_Reviews_Users
+    FOREIGN KEY(UserID)
+    REFERENCES [security].Users(UserID)
+END
+GO
