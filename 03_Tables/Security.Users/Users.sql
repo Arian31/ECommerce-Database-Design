@@ -25,5 +25,4 @@ BEGIN
 		UpdatedAt DATE NULL,
 	)
 END
-
 GO

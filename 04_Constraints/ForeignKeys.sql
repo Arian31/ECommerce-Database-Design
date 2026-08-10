@@ -109,3 +109,64 @@ BEGIN
     REFERENCES [Catalog].ProductTags(TagID)
 END
 GO
+
+-- *** ProductImages FK: Product ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_ProductImages_Products'
+)
+BEGIN
+    ALTER TABLE [catalog].ProductImages
+    ADD CONSTRAINT FK_ProductImages_Products
+    FOREIGN KEY(ProductID)
+    REFERENCES [catalog].Products(ProductID)
+END
+GO
+
+-- *** ProductVariants Foreign Keys ***
+
+-- « ’«· »Â Product
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_ProductVariants_Products')
+BEGIN
+    ALTER TABLE [catalog].ProductVariants
+    ADD CONSTRAINT FK_ProductVariants_Products
+    FOREIGN KEY(ProductID) REFERENCES [catalog].Products(ProductID)
+END
+GO
+
+-- « ’«· »Â Color
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_ProductVariants_Colors')
+BEGIN
+    ALTER TABLE [catalog].ProductVariants
+    ADD CONSTRAINT FK_ProductVariants_Colors
+    FOREIGN KEY(ColorID) REFERENCES [catalog].Colors(ColorID)
+END
+GO
+
+-- « ’«· »Â Size
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_ProductVariants_Sizes')
+BEGIN
+    ALTER TABLE [catalog].ProductVariants
+    ADD CONSTRAINT FK_ProductVariants_Sizes
+    FOREIGN KEY(SizeID) REFERENCES [catalog].Sizes(SizeID)
+END
+GO
+
+-- *** Inventory ***
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_Inventory_Warehouses')
+BEGIN
+    ALTER TABLE [inventory].Inventory
+    ADD CONSTRAINT FK_Inventory_Warehouses
+    FOREIGN KEY(WarehouseID) REFERENCES [inventory].Warehouses(WarehouseID)
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_Inventory_ProductVariants')
+BEGIN
+    ALTER TABLE [inventory].Inventory
+    ADD CONSTRAINT FK_Inventory_ProductVariants
+    FOREIGN KEY(VariantID) REFERENCES [catalog].ProductVariants(VariantID)
+END
+GO
