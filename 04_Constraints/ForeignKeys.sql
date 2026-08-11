@@ -476,3 +476,18 @@ BEGIN
     REFERENCES [security].Users(UserID)
 END
 GO
+
+-- *** AuditLogs FK: User ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_AuditLogs_Users'
+)
+BEGIN
+    ALTER TABLE [system].AuditLogs
+    ADD CONSTRAINT FK_AuditLogs_Users
+    FOREIGN KEY(UserID)
+    REFERENCES [security].Users(UserID)
+END
+GO
