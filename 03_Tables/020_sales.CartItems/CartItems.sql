@@ -19,18 +19,5 @@ BEGIN
 END
 GO
 
--- *** CartItems FK: ShoppingCart ***
-IF NOT EXISTS 
-(
-	SELECT * 
-	FROM sys.foreign_keys 
-	WHERE name = 'FK_CartItems_ShoppingCarts'
-)
-BEGIN
-    ALTER TABLE [sales].CartItems
-    ADD CONSTRAINT FK_CartItems_ShoppingCarts
-    FOREIGN KEY(CartID)
-    REFERENCES [sales].ShoppingCarts(CartID)
-END
-GO
+
 

@@ -22,18 +22,4 @@ BEGIN
 END
 GO
 
--- *** OrderItems FK: Order ***
-IF NOT EXISTS 
-(
-	SELECT * 
-	FROM sys.foreign_keys 
-	WHERE name = 'FK_OrderItems_Orders'
-)
-BEGIN
-    ALTER TABLE [sales].OrderItems
-    ADD CONSTRAINT FK_OrderItems_Orders
-    FOREIGN KEY(OrderID)
-    REFERENCES [sales].Orders(OrderID)
-END
-GO
 
