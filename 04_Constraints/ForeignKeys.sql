@@ -442,3 +442,37 @@ BEGIN
     FOREIGN KEY(UserID) REFERENCES [security].Users(UserID)
 END
 GO
+
+
+-- *** Favorites FK: Users ***
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_Favorites_Users')
+BEGIN
+    ALTER TABLE [customer].Favorites
+    ADD CONSTRAINT FK_Favorites_Users
+    FOREIGN KEY(UserID) REFERENCES [security].Users(UserID)
+END
+GO
+
+-- *** Favorites FK: Products ***
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_Favorites_Products')
+BEGIN
+    ALTER TABLE [customer].Favorites
+    ADD CONSTRAINT FK_Favorites_Products
+    FOREIGN KEY(ProductID) REFERENCES [catalog].Products(ProductID)
+END
+GO
+
+-- *** Notifications FK: User ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_Notifications_Users'
+)
+BEGIN
+    ALTER TABLE [system].Notifications
+    ADD CONSTRAINT FK_Notifications_Users
+    FOREIGN KEY(UserID)
+    REFERENCES [security].Users(UserID)
+END
+GO
