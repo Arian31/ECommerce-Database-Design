@@ -21,8 +21,6 @@ END
 GO
 
 
-USE ECommerceDB
-GO
 
 -- ۱. ابتدا نوع ستون را به NOT NULL تغییر می‌دهیم
 ALTER TABLE [payment].Payments
