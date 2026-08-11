@@ -361,3 +361,84 @@ BEGIN
     REFERENCES [security].Users(UserID)
 END
 GO
+
+-- *** WishLists FK: User ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_WishLists_Users'
+)
+BEGIN
+    ALTER TABLE [customer].WishLists
+    ADD CONSTRAINT FK_WishLists_Users
+    FOREIGN KEY(UserID)
+    REFERENCES [security].Users(UserID)
+END
+GO
+
+-- *** WishListItems FK: WishList ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_WishListItems_WishLists'
+)
+BEGIN
+    ALTER TABLE [customer].WishListItems
+    ADD CONSTRAINT FK_WishListItems_WishLists
+    FOREIGN KEY(WishListID)
+    REFERENCES [customer].WishLists(WishListID)
+END
+GO
+
+-- *** WishListItems FK: Variant ***
+IF NOT EXISTS 
+(
+	SELECT * 
+	FROM sys.foreign_keys 
+	WHERE name = 'FK_WishListItems_ProductVariants'
+)
+BEGIN
+    ALTER TABLE [customer].WishListItems
+    ADD CONSTRAINT FK_WishListItems_ProductVariants
+    FOREIGN KEY(VariantID)
+    REFERENCES [catalog].ProductVariants(VariantID)
+END
+GO
+
+-- *** ProductQuestions Foreign Keys ***
+
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_ProductQuestions_Products')
+BEGIN
+    ALTER TABLE [review].ProductQuestions
+    ADD CONSTRAINT FK_ProductQuestions_Products
+    FOREIGN KEY(ProductID) REFERENCES [catalog].Products(ProductID)
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_ProductQuestions_Users')
+BEGIN
+    ALTER TABLE [review].ProductQuestions
+    ADD CONSTRAINT FK_ProductQuestions_Users
+    FOREIGN KEY(UserID) REFERENCES [security].Users(UserID)
+END
+GO
+
+-- *** ProductAnswers Foreign Keys ***
+
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_ProductAnswers_Questions')
+BEGIN
+    ALTER TABLE [review].ProductAnswers
+    ADD CONSTRAINT FK_ProductAnswers_Questions
+    FOREIGN KEY(QuestionID) REFERENCES [review].ProductQuestions(QuestionID)
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_ProductAnswers_Users')
+BEGIN
+    ALTER TABLE [review].ProductAnswers
+    ADD CONSTRAINT FK_ProductAnswers_Users
+    FOREIGN KEY(UserID) REFERENCES [security].Users(UserID)
+END
+GO
