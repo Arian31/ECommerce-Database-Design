@@ -57,7 +57,6 @@ AI-assisted tools were used as part of the development workflow for documentatio
 
 If you have any questions about this project or would like to discuss database engineering opportunities, feel free to reach out.
 
-- **Email:** [arianamiri631@gmail.com](mailto:arianamiri631@gmail.com)
 - **Telegram:** [@AriAn_31](https://t.me/AriAn_31)
 
 ---
